@@ -54,7 +54,7 @@ fi
 check_gitignore=$(find . -name ".gitignore")
 if [ -z $check_gitignore ]
 then
-    printf ".vscode\n.idea\n.env\n" >> .gitignore
+    printf ".vscode\n.idea\n.env\n.terraform\n.DS_Store\n" >> .gitignore
 fi
 
 check_read_me=$(find . -name ./README.md)
