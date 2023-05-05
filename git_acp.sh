@@ -10,5 +10,6 @@ then
     git checkout $2
     git merge $current_brench
     git push
+    
     git checkout $current_brench
 fi
