@@ -66,7 +66,7 @@ fi
 git add .
 git commit -m "start"
 git branch -M main
-git remote add origin git@github.com:$repo_url
+git remote add origin $repo_url
 git push -u origin main
 git checkout -b dev
 git push --set-upstream origin dev
