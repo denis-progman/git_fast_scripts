@@ -49,9 +49,6 @@ else
     git config --add --local core.sshCommand "ssh -i $token"
 fi
 
-p_success "r = '$repo_url' t = '$token'"
-exit 1
-
 check_gitignore=$(find . -name ".gitignore")
 if [[ -z $check_gitignore ]]; then
     printf ".vscode\n.idea\n.env\n.terraform\n.DS_Store\n" >> .gitignore
