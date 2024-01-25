@@ -1,7 +1,8 @@
 #!/bin/bash
+source "$(dirname "$0")/functions.sh"
 
-repo_url=""
-token=""
+repo_url=
+token=
 
 while getopts ":r:t:" opt; do
   case $opt in
@@ -23,11 +24,11 @@ done
 check_git=$(find . -type d -name ".git")
 current_path=$(pwd)
 
-if [ ! -z $check_git ]
+if [[ ! -z $check_git ]]
 then
     echo "Attention! Found existed repositoriy in '$current_path'!"
     read -p "Are you sure you want to delete it and make new one?(yes): " check
-    if [ $check == "yes" ] 
+    if [[ $check == "yes" ]]
     then
         rm -fr .git
     else
@@ -36,7 +37,7 @@ then
     fi
 fi
 
-if [ $repo_url == "" ] 
+if [[ $(trim $repo_url) == "" ]]
 then
     echo "error! You have to specify repository url as a first param or with the '-r' flag"
     exit 1
@@ -44,22 +45,22 @@ fi
 
 git init
 
-if [ $token == "" ] 
-then
+if [[ -z $(trim $token) ]]; then
     echo "warning! trying the ssh connection with default ssh key.\n You can specify the shh key for this repo with '-t' flag"
 else 
     git config --add --local core.sshCommand "ssh -i $token"
 fi
 
+echo "r = '$repo_url' t = '$token'"
+exit 1
+
 check_gitignore=$(find . -name ".gitignore")
-if [ -z $check_gitignore ]
-then
+if [[ -z $check_gitignore ]]; then
     printf ".vscode\n.idea\n.env\n.terraform\n.DS_Store\n" >> .gitignore
 fi
 
 check_read_me=$(find . -name ./README.md)
-if [ -z $check_read_me ]
-then
+if [[ -z $check_read_me ]]; then
     touch README.md
 fi
 
