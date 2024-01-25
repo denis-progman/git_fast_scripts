@@ -12,7 +12,7 @@ fi
 
 current_brench=$(git branch --show-current) 
 
-p_bold "${blue}Start Git ASP in '$current_path'"
+p_bold "${blue}Start Git ASP in '$current_brench'"
 
 git add .
 git commit -am "${1}"
