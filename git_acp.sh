@@ -28,7 +28,7 @@ if [[ ! -z $2 ]]; then
 
     git checkout $current_brench
     git status
-    p_bold "Work with ${blue}$2${reset}${bold} is compliteted. You've swiched back to ${reset}${blue}$current_brench"
+    p_bold "Work with ${blue}$2${reset}${bold} is compliteted. You've swiched back to ${blue}$current_brench"
 fi
 
 p_success "All done - well done!"
