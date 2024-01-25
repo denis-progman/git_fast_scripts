@@ -16,7 +16,7 @@ git push
 
 current_brench=$(git branch --show-current) 
 git status
-p_bold "Work with $current_brench is compliteted."
+p_bold "Work with ${blue}$current_brench${reset} is compliteted."
 
 if [[ ! -z $2 ]]; then
     git checkout $2
@@ -25,7 +25,7 @@ if [[ ! -z $2 ]]; then
 
     git checkout $current_brench
     git status
-    p_bold "Work with $2 is compliteted. You've swiched back to $current_brench"
+    p_bold "Work with ${blue}$2${reset} is compliteted. You've swiched back to ${blue}$current_brench"
 fi
 
 p_success "All done - well done!"
