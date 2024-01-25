@@ -10,13 +10,16 @@ if [[ -z $check_git ]]; then
     exit 1
 fi
 
+current_brench=$(git branch --show-current) 
+
+p_bold "${blue}Start Git ASP in '$current_path'"
+
 git add .
 git commit -am "${1}"
 git push
 
-current_brench=$(git branch --show-current) 
 git status
-p_bold "Work with ${blue}$current_brench${reset} is compliteted."
+p_bold "Work with ${blue}$current_brench${reset}${bold} is compliteted."
 
 if [[ ! -z $2 ]]; then
     git checkout $2
@@ -25,7 +28,7 @@ if [[ ! -z $2 ]]; then
 
     git checkout $current_brench
     git status
-    p_bold "Work with ${blue}$2${reset} is compliteted. You've swiched back to ${blue}$current_brench"
+    p_bold "Work with ${blue}$2${reset}${bold} is compliteted. You've swiched back to ${reset}${blue}$current_brench"
 fi
 
 p_success "All done - well done!"
