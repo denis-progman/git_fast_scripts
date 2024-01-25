@@ -11,11 +11,11 @@ while getopts ":r:t:" opt; do
     t)  token=$OPTARG
         ;;
     \?)
-        echo "Invalid option: -$OPTARG\n"
+        p_error "Invalid option: -$OPTARG\n"
         exit 1
         ;;
     :)
-        echo "Option -$OPTARG requires an argument.\n"
+        p_warning "Option -$OPTARG requires an argument.\n"
         exit 1
         ;;
   esac
@@ -24,34 +24,32 @@ done
 check_git=$(find . -type d -name ".git")
 current_path=$(pwd)
 
-if [[ ! -z $check_git ]]
-then
-    echo "Attention! Found existed repositoriy in '$current_path'!"
-    read -p "Are you sure you want to delete it and make new one?(yes): " check
+if [[ ! -z $check_git ]]; then
+    p_warning "Attention! Found existed repositoriy in '$current_path'!"
+    read -p "${bold}Are you sure you want to delete it and make new one?${reset} (yes): " check
     if [[ $check == "yes" ]]
     then
         rm -fr .git
     else
-        echo "The operation's canceled!"
+        p_bold "The operation's canceled!"
         exit 1
     fi
 fi
 
-if [[ $(trim $repo_url) == "" ]]
-then
-    echo "error! You have to specify repository url as a first param or with the '-r' flag"
+if [[ $(trim $repo_url) == "" ]]; then
+    p_error "You have to specify repository url as a first param or with the '-r' flag"
     exit 1
 fi
 
 git init
 
 if [[ -z $(trim $token) ]]; then
-    echo "warning! trying the ssh connection with default ssh key.\n You can specify the shh key for this repo with '-t' flag"
+    p_warning "warning! trying the ssh connection with default ssh key. You can specify the shh key for this repo with '-t' flag"
 else 
     git config --add --local core.sshCommand "ssh -i $token"
 fi
 
-echo "r = '$repo_url' t = '$token'"
+p_success "r = '$repo_url' t = '$token'"
 exit 1
 
 check_gitignore=$(find . -name ".gitignore")
@@ -72,3 +70,5 @@ git push -u origin main
 git checkout -b dev
 git push --set-upstream origin dev
 git status
+
+p_success "Done!"

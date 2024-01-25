@@ -1,3 +1,5 @@
+source "$(dirname "$0")/constants.sh"
+
 trim() {
     local var="$*"
     # remove leading whitespace characters
