@@ -4,11 +4,11 @@ source "$(dirname "$0")/functions.sh"
 repo_url=
 token=
 
-while getopts ":r:t:" opt; do
+while getopts ":r:k:" opt; do
   case $opt in
     r)  repo_url=$OPTARG
         ;;
-    t)  token=$OPTARG
+    k)  token=$OPTARG
         ;;
     \?)
         p_error "Invalid option: -$OPTARG\n"
@@ -44,7 +44,7 @@ fi
 git init
 
 if [[ -z $(trim $token) ]]; then
-    p_warning "warning! trying the ssh connection with default ssh key. You can specify the shh key for this repo with '-t' flag"
+    p_warning "warning! trying the ssh connection with default ssh key. You can specify the shh key for this repo with '-k' flag"
 else 
     git config --add --local core.sshCommand "ssh -i $token"
 fi
