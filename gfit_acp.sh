@@ -1,7 +1,7 @@
 #!/bin/bash
 source "$(dirname "$0")/functions.sh"
 
-check_git=$(find . -type d -name ".git")
+check_git=$(find . -maxdepth 1 -type d -name ".git")
 current_path=$(pwd)
 
 if [[ -z $check_git ]]; then

@@ -21,13 +21,13 @@ while getopts ":r:k:" opt; do
   esac
 done
 
-check_git=$(find . -type d -name ".git")
+check_git=$(find . -maxdepth 1 -type d -name ".git")
 current_path=$(pwd)
 
-if [[ ! -z $check_git ]]; then
+if [ ! -z $check_git ]; then
     p_warning "Attention! Found existed repositoriy in '$current_path'!"
     read -p "${bold}Are you sure you want to delete it and make new one?${reset} (yes): " check
-    if [[ $check == "yes" ]]
+    if [ $check == "yes" ]
     then
         rm -fr .git
     else
@@ -36,26 +36,26 @@ if [[ ! -z $check_git ]]; then
     fi
 fi
 
-if [[ $(trim $repo_url) == "" ]]; then
+if [ $(trim $repo_url) == "" ]; then
     p_error "You have to specify repository url as a first param or with the '-r' flag"
     exit 1
 fi
 
 git init
 
-if [[ -z $(trim $token) ]]; then
+if [ -z $(trim $token) ]; then
     p_warning "warning! trying the ssh connection with default ssh key. You can specify the shh key for this repo with '-k' flag"
 else 
     git config --add --local core.sshCommand "ssh -i $token"
 fi
 
-check_gitignore=$(find . -name ".gitignore")
-if [[ -z $check_gitignore ]]; then
+check_gitignore=$(find . -maxdepth 1 -name "./.gitignore")
+if [ -z $check_gitignore ]; then
     printf ".vscode\n.idea\n.env\n.terraform\n.DS_Store\n" >> .gitignore
 fi
 
-check_read_me=$(find . -name ./README.md)
-if [[ -z $check_read_me ]]; then
+check_read_me=$(find . -maxdepth 1 -name ./README.md)
+if [ -z $check_read_me ]; then
     touch README.md
 fi
 
